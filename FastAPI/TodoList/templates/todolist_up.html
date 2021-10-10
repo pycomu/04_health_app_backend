@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>MyTODO list</title>
+    </head>
+    <style>
+        *{
+            margin: 0;
+        }
+        table {
+            align-items: center;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        h1 {
+            width: fit-content;
+            font-family: 'Courier New', Courier, monospace;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 50px;
+        }
+        th,td {
+            width: 250px;
+            justify-content: center;
+            font-size: 18px;
+            font-family: 'Lucida Sans';
+        }
+        td:nth-child(2) {
+            text-align: center;
+        }
+    </style>
+    <body>
+        <h1>My TO DO list - Update</h1>
+        <br/>
+        <table>
+            <tr>
+                <th>ToDo for updating:</th>
+            </tr>
+            <tr>
+                <td>{{tododict}}</td>
+            </tr>
+            
+            <tr>
+                <form method="POST" action="/add">
+                <td><input type="text" name="newtodo" value = {{tododict}} required></td>
+                <td style="text-align: center;"><button type="submit">Update</button></td>
+                </form>
+            </tr>
+        </table>
+    </body>
+</html>

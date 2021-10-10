@@ -10,8 +10,9 @@ from fastapi import FastAPI, Request, Form # Form for case 3
 
 # Creating an app object
 app = FastAPI()
+# depending on your working directory of your virtual enviroment ! here "BMIcalcJinJa2"
 templates = Jinja2Templates(directory="BMIcalcJinJa2/templates")
-
+app.mount("/BMIcalcJinJa2/static", StaticFiles(directory="BMIcalcJinJa2/static"), name="static")
 
 #++++++++++++++++++ CASE 1 +++++++++++++++++++++++++++++++ request as "/bmicalc?height=2&weight=77"
 
@@ -40,7 +41,7 @@ def form_post(request: Request):
 @app.post("/form")
 def form_post(request: Request, weight: int = Form(...),height: float  = Form(...)):
     result = round(weight/ (height*height),2)
-    return templates.TemplateResponse('bmi_form2.html', context={'request': request, 'bmi': result})
+    return templates.TemplateResponse('bmi_form1.html', context={'request': request, 'bmi': result})
 
 # ++++++++++++++++++
 
