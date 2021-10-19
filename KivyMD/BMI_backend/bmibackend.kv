@@ -1,0 +1,199 @@
+<MainPage>:
+# +++++++++++++++++++++++++++ MEASURE ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    MDScreen:
+        name: "Measure"
+        # height : height
+        # weight : weight
+
+        BoxLayout:
+            orientation: 'vertical'
+            MDToolbar:
+                title: "BMI calculation via backend"
+                elevation: 10
+            
+            MDFloatLayout:
+                orientation: "vertical"
+                
+                MDTextField:
+                    id: height # name of pin input widget 
+                    hint_text: "height in m"
+                    max_text_length: 2
+                    multiline: False
+                    helper_text: "min. 1, max. 2 digits"
+                    helper_text_mode: "on_focus"
+                    pos_hint:{'center_x': 0.5, 'center_y': 0.9}
+                    size_hint :0.8, None
+                    required : True
+                    icon_right: 'human-male-height'
+                MDTextField:
+                    id: weight # name of pin input widget 
+                    hint_text: "Weight in Kg"
+                    max_text_length: 3
+                    multiline: False
+                    helper_text: "min. 2, max. 3 digits"
+                    helper_text_mode: "on_focus"
+                    pos_hint:{'center_x': 0.5, 'center_y': 0.7}
+                    size_hint :0.8, None
+                    required : True
+                    icon_right: 'weight-kilogram'
+                MDFillRoundFlatButton:
+                    text: "Submit Data"
+                    md_bg_color: app.theme_cls.primary_light
+                    theme_text_color: "Custom"                    
+                    text_color: app.theme_cls.primary_dark
+                    font_size: 28
+                    size_hint_x: 0.8
+                    size_hint_y: 0.1
+                    pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+                    on_release:
+                        root.check_input()
+                MDLabel:
+                    id: bmi_result
+                    text : root.bmi_result
+                    font_size: 28
+                    halign : "center"
+                    pos_hint:{'center_x': 0.5, 'center_y': 0.3}
+
+# ----------------------- NAVIGATION BAR -------------------------
+        MDBoxLayout:
+            size_hint_y:None
+            size_hint_x: 1
+            height: "65dp"
+            spacing: "10dp"
+            padding: "12dp", 0, "12dp", 0
+
+            canvas.before:
+                Color:
+                    rgb: app.theme_cls.primary_light  
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            FloatLayout:
+                pos_hint: {"center_x": .5}
+                MDIconButton:
+                    icon: "heart-pulse"
+                    size_hint: None, None
+                    pos_hint: {"center_y": .5,"center_x": .2}
+                    on_release:
+                        root.current = "Measure"
+                
+                MDIconButton:
+                    icon: "chart-line"
+                    pos_hint: {"center_y": .5,"center_x": .5}
+                    on_release: 
+                        root.current = "Diagramm"
+                
+                MDIconButton:
+                    icon: "information"
+                    pos_hint: {"center_y": .5,"center_x": .8}
+                    on_release: 
+                        root.current = "Information"
+            
+# +++++++++++++++++++++++++++ DIAGRAMM ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    MDScreen:
+        name: "Diagramm"
+        
+        BoxLayout:
+            orientation: 'vertical'
+            MDToolbar:
+                title: "BMI Chart & Data"
+                elevation: 10
+                
+            MDFloatLayout:
+                orientation: "vertical"
+                
+# ----------------------- NAVIGATION BAR -------------------------
+        MDBoxLayout:
+            size_hint_y:None
+            size_hint_x: 1
+            height: "65dp"
+            spacing: "10dp"
+            padding: "12dp", 0, "12dp", 0
+
+            canvas.before:
+                Color:
+                    rgb: app.theme_cls.primary_light 
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            FloatLayout:
+                pos_hint: {"center_x": .5}
+                MDIconButton:
+                    icon: "heart-pulse"
+                    size_hint: None, None
+                    pos_hint: {"center_y": .5,"center_x": .2}
+                    on_release:
+                        root.current = "Measure"
+                
+                MDIconButton:
+                    icon: "chart-line"
+                    pos_hint: {"center_y": .5,"center_x": .5}
+                    on_release: 
+                        root.current = "Diagramm"
+                
+                MDIconButton:
+                    icon: "information"
+                    pos_hint: {"center_y": .5,"center_x": .8}
+                    on_release: 
+                        root.current = "Information"               
+
+# +++++++++++++++++++++++++++ INFORMATION ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    MDScreen:
+        name: "Information"
+                
+        BoxLayout:
+            orientation: 'vertical'
+            MDToolbar:
+                title: "BMI Information"
+                elevation: 10
+                
+            # MDFloatLayout:
+            #     orientation: "vertical"
+
+            Image:
+                source: "./bmi-chart.png"
+                pos_hint:{'center_x': 0.5, 'center_y': 0.6}
+                size: self.size
+                allow_stretch: True
+                
+# ----------------------- NAVIGATION BAR -------------------------
+        MDBoxLayout:
+            size_hint_y:None
+            size_hint_x: 1
+            height: "65dp"
+            spacing: "10dp"
+            padding: "12dp", 0, "12dp", 0
+
+            canvas.before:
+                Color:
+                    rgb: app.theme_cls.primary_light 
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            FloatLayout:
+                pos_hint: {"center_x": .5}
+                MDIconButton:
+                    icon: "heart-pulse"
+                    size_hint: None, None
+                    pos_hint: {"center_y": .5,"center_x": .2}
+                    on_release:
+                        root.current = "Measure"
+                
+                MDIconButton:
+                    icon: "chart-line"
+                    pos_hint: {"center_y": .5,"center_x": .5}
+                    on_release: 
+                        root.current = "Diagramm"
+                
+                MDIconButton:
+                    icon: "information"
+                    pos_hint: {"center_y": .5,"center_x": .8}
+                    on_release: 
+                        root.current = "Information"               
+
+
+        
