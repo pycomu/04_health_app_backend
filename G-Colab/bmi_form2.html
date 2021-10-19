@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BMI Calculator</title>
+  </head>
+  <body>
+    <form method="post">
+      <label for="weight">Weight in Kg</label>
+      <input type="number" name="weight" id="weight" min="1" max="200" step="1" value ="70" />
+      <label for="height">Height in meter</label>
+      <input type="float" name="height" id="height" min="1" max="3" step="0.1" />
+      <button type="reset">Reset</button>
+      <button type="submit">Submit</button>
+    </form>
+
+    <p>Result: {{ bmi }}</p> <!-- bmi stands for variable result in python-->
+  </body>
+</html>
