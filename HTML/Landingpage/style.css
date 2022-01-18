@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/* --- Variables --- */
+
+:root {
+  --theme-color: #4e7ba7;
+  --bg-light-color: #d3d0da;
+  --bg-dark-color: #b5b3be;
+  --text-color: #0b1320;
+  --link-color: #d28f1b;
+}
+/* --- General CSS --- */
+.container {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+h1,
+p,
+a,
+button,
+label, input,textarea {
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+button {
+  background-color: var(--bg-light-color);
+  /* color: var(--text-color); */
+  padding: 0.75rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 1rem;
+  text-align: center;
+}
+button:hover {
+  background-color: var(--bg-dark-color);
+  color: white;
+}
+
+input[type=text],input[type=number],input[type=float], input[type=email], textarea {
+  width: 100%;
+  padding: .75rem;
+  border: 1px solid var(--bg-light-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: .75rem;
+  margin-bottom: .75rem;
+  resize: vertical;
+}
+
+/* ########################### HEADER ######################################## */
+header {
+  background-color: var(--theme-color);
+  text-align: center;
+}
+.header-logo h1 {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+  color: white;
+  border: 2px solid white;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 36px;
+}
+
+.header-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-flow: column-reverse; */
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem;
+  padding-bottom: 1rem;
+  /* border: 2px solid red; */
+}
+/* ########################### NAV BAR ######################################## */
+nav {
+  overflow: hidden;
+  background-color: var(--bg-dark-color);
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+
+#navbar a:hover {
+  background-color: var(--bg-light-color);
+  border: 1px solid var(--bg-dark-color);
+  color: var(--link-color);
+}
+
+#navbar a.active {
+  background-color: var(--link-color);
+  color: white;
+}
+
+.services {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .services {
+  padding-top: 60px;
+}
+/* ########################### SERVICES ######################################## */
+.grid-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, auto));
+  grid-gap: 1rem;
+  /* border: 2px solid rgb(247, 0, 255); */
+}
+.grid-section a {
+  text-decoration: none;
+}
+.icon-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.icon-title img {
+  margin-right: 1rem;
+}
+.icon-title h2 {
+  font-size: 1.25rem;
+  color: #1e1964;
+  color: var(--theme-color);
+}
+.grid-box .highlight {
+  color: var(--link-color);
+  font-weight: bold;
+}
+.grid-box {
+  padding: 1rem;
+}
+
+.grid-box:hover {
+  box-shadow: 0px 0px 2rem #0000002f;
+  border-radius: 1rem;
+}
+/* ########################### BMI CHECK ######################################## */
+.bmi-check {
+  background-color: var(--theme-color);
+  padding:2rem;
+  text-align: center;
+  /* max-width: 25rem; */
+}
+
+/* ########################### CONTACT ######################################## */
+.contact {
+  padding:2rem;
+  max-width: 25rem;
+}
