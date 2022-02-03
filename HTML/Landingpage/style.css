@@ -22,11 +22,11 @@ body {
 
 h1,
 p,
-a,
+a, li,
 button,
 label, input,textarea {
   color: var(--text-color);
-  font-size: 0.9rem;
+  font-size: 1.25rem;
 }
 button {
   background-color: var(--bg-light-color);
@@ -103,7 +103,7 @@ nav {
   color: white;
 }
 
-.services {
+.grid {
   padding: 16px;
 }
 
@@ -113,13 +113,14 @@ nav {
   width: 100%;
 }
 
-.sticky + .services {
-  padding-top: 60px;
+.sticky + .grid {
+  padding-top: 70px;
 }
-/* ########################### SERVICES ######################################## */
+/* ########################### GRID ######################################## */
 .grid-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, auto));
+  /* grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); */
   grid-gap: 1rem;
   /* border: 2px solid rgb(247, 0, 255); */
 }
@@ -154,13 +155,59 @@ nav {
 /* ########################### BMI CHECK ######################################## */
 .bmi-check {
   background-color: var(--theme-color);
+  display: flex;
   padding:2rem;
+  
+  /* border: 1px solid red; */
+}
+.form-input {
+  /* width: 50%; */
+  min-width: 25rem;
+  margin-right: 2rem;
   text-align: center;
-  /* max-width: 25rem; */
+  /* border: 1px solid greenyellow; */
+}
+.bmicheck-text p {
+  color: var(--bg-light-color);
+  color: whitesmoke;
+}
+/* ########################### SERVICES ######################################## */
+.services {
+  padding:2rem;
+}
+
+
+
+/* ########################### Team ######################################## */
+
+.team {
+  background-color: var(--theme-color);
+  padding:2rem;
+}
+.teamdetail {
+  text-align: center;
+}
+.teamdetail img {
+  border-radius: 50%;
+  width: 15rem;
+  padding: 2rem;
+}
+.team_pic_left , .team_pic_right {
+  display: flex;
+  /* bei kleinem Bildschirm dann ausrichtung anders */
+  /* flex-direction: column; */
+  align-items: center;
 }
 
 /* ########################### CONTACT ######################################## */
 .contact {
   padding:2rem;
   max-width: 25rem;
+}
+/* ########################### FOOTER ######################################## */
+footer h1 {
+  background-color: var(--text-color);
+  padding:2rem;
+  text-align: center;
+  color: whitesmoke;
 }

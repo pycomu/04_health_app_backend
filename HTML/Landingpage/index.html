@@ -15,11 +15,11 @@
           <h1>Child Health Web App</h1>
         </div>
         <div class="header-buttons">
-          <div class="header-button-account">
+          <!-- <div class="header-button-account">
             <button>Sign in</button>
             <p>You have no account ?</p>
             <button>Sign up</button>
-          </div>
+          </div> -->
           <div class="header-button-bmi">
             <p>Check your children's health <br />and change their condition!</p>
             <!-- use JS to jump to a specific section -->
@@ -29,8 +29,9 @@
       </header>
       <nav id="navbar">
         <a class="active" href="#home">Home</a>
-        <a href="#services">Services</a>
+        <a href="#grid">Services</a>
         <a href="#bmi-check">BMI Check</a>
+        <a href="#team">Team</a>
         <a href="#contact">Contact</a>
 
         <!-- sticky nav bar with JS -->
@@ -40,10 +41,10 @@
         <a href="javascript:void(0)" href="#contact">Contact</a> -->
       </nav>
 
-      <main class="services" id="services" >
+      <main class="grid" id="grid" >
         <div class="grid-section">
           <!-- or try https://css-tricks.com/snippets/jquery/make-entire-div-clickable/ -->
-          <a href="service1.html">
+          <a href="#service1">
             <div class="grid-box">
               <div class="icon-title">
                   <img src="./img/skill-1.png" alt="">
@@ -53,7 +54,7 @@
                  to live a healthy lifestyle. . Assist young parents in..."</p>
             </div>
           </a>
-          <a href="service2.html">          
+          <a href="#service2">          
             <div class="grid-box">
               <div class="icon-title">
                   <img src="./img/skill-2.png" alt="">
@@ -62,16 +63,16 @@
               <p> <span class="highlight">The nutrional facts</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur obcaecati incidunt pariatur in doloribus repellat hic nesciunt accusamus tempora. Facere.</p>
             </div>
           </a>
-          <a href="service3.html">
+          <a href="#service3">
             <div class="grid-box">
               <div class="icon-title">
                 <img src="./img/skill-2.png" alt="">
-                <h2>Private Survey "Children Health"</h2>
+                <h2>Private Survey "Children Health</h2>
               </div>
               <p> <span class="highlight">This survey</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur obcaecati incidunt pariatur in doloribus repellat hic nesciunt accusamus tempora. Facere.</p>
             </div>
           </a>
-          <a href="service4.html">
+          <a href="#service4">
             <div class="grid-box">
               <div class="icon-title">
                   <img src="./img/skill-1.png" alt="">
@@ -83,11 +84,13 @@
           </a>
         </div>
       </main>
+
       <section class="bmi-check" id="bmi-check">
-        <h1>Please enter your data here:</h1>
         <!-- here the API server - could be local host for testing -->
-        <form action="http://127.0.0.1:8000/form" method="POST">
+        <form class="form-input" action="http://127.0.0.1:8000/form" method="POST">
         <!-- <form action="https://pycomu-bmi-calc.herokuapp.com/bmicalconly" method="POST"> -->
+
+          <h1>Please enter your data here:</h1>
           <div class="weight">
             <label for="weight">Weight in Kg</label>
             <input type="number" name="weight" id="weight" min="1" max="200" step="1" value ="70" />
@@ -101,6 +104,190 @@
             <button type="submit">Submit</button>
           </div>       
         </form>
+        <div>
+          <div class="bmi-table">
+            <img src="./img/bmi table.jpg" alt="" >
+          </div>
+          <div class="bmicheck-text">
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque repellat 
+              distinctio aperiam aliquid possimus! Non, accusantium atque. Illum animi 
+              aliquam velit maxime voluptatem quisquam, harum cumque laboriosam aspernatur quaerat suscipit?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="services" id="services">
+
+        <div id="service1">
+          <div class="service-block">
+            <h1>Mission and Vison</h1>            
+          </div>
+          <div class="service-text">
+            <p>
+            "Our goal is to motivate the next generation to live a healthy lifestyle. Assist young
+            parents in understanding the nutritional needs of their children and provide opportunities
+              for young brains to learn about their development. Know what you're putting into your 
+              body. Here are some healthy dishes to spice up your diet. More insight with minimal data." </p>
+          </div>
+        </div>
+        <hr>
+        <div id="service2">
+          <div class="service-block">
+            <h1>Nutritional Facts Fruit/Vegetable</h1>            
+          </div>
+          <div class="service-text">
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque repellat 
+              distinctio aperiam aliquid possimus! Non, accusantium atque. Illum animi 
+              aliquam velit maxime voluptatem quisquam, harum cumque laboriosam aspernatur quaerat suscipit? </p>
+          </div>
+        </div>
+        <hr>
+        <div id="service3">
+          <div class="service-block">
+            <h1>Private Survey "Children Health</h1>            
+          </div>
+          <div class="service-text">
+            <ul>
+              <li>
+                1. How do you rate your awareness on child health ?	
+              </li>
+              <li>
+                2. How old is(are) your child(ren), if any ? [0 - 3 years old]	
+                2. How old is(are) your child(ren), if any ? [4 - 6 years old]	
+                2. How old is(are) your child(ren), if any ? [7 - 10 years old]	
+                2. How old is(are) your child(ren), if any ? [11 - 16 years old]	
+                2. How old is(are) your child(ren), if any ? [no answer]
+              </li>
+              <li>
+                3. Do you apply any special food plan or complementary nutrition for your child(ren) ?
+              </li>
+              <li>
+                4a. Which aspect of child health is more important to you?  [Weight]	
+                4a. Which aspect of child health is more important to you?  [Activity/social activities]	
+                4a. Which aspect of child health is more important to you?  [Nutrition]	
+                4a. Which aspect of child health is more important to you?  [Height]	
+                4a. Which aspect of child health is more important to you?  [Food habit / diet]	
+                4a. Which aspect of child health is more important to you?  [Drinking habit (water, no sugar, etc.)]
+              </li>
+              <li>
+                4b. This aspect of child health is important to me. (not listed in 4a)
+              </li>
+              <li>
+                5. How frequently do you check the child/ren) health ?
+              </li>
+              <li>
+                6. How often do you visit the child doctor ?
+              </li>
+              <li>
+                7a. Do you use any child health tracker or system ? What are you measuring ? [Food, specially calories]	
+                7a. Do you use any child health tracker or system ? What are you measuring ? [Food, specially protein]	
+                7a. Do you use any child health tracker or system ? What are you measuring ? [Food, specially fat ]	
+                7a. Do you use any child health tracker or system ? What are you measuring ? [Food, specially carbohydrate]	
+                7a. Do you use any child health tracker or system ? What are you measuring ? [BMI (body mass index)]	
+                7a. Do you use any child health tracker or system ? What are you measuring ? [Drinking, specially quantity]	
+                7a. Do you use any child health tracker or system ? What are you measuring ? [Food/Diet plan]	
+                7a. Do you use any child health tracker or system ? What are you measuring ? [Nutrition plan]	
+              </li>
+              <li>
+                7b. I'am measuring this in my child health tracker or system ? (not listed in 7a)
+              </li>
+              <li>
+                8. What is the biggest challenge using your child health tracker or system ?
+              </li>
+              <li>
+                9.  What feature or thing is definitely missing in your current child health tracker or system ?
+              </li>
+              <li>
+                10. Who is in control of the child health tracker or system ?  [Mother]	
+                10. Who is in control of the child health tracker or system ?  [Father]	
+                10. Who is in control of the child health tracker or system ?  [Children]	
+                10. Who is in control of the child health tracker or system ?  [Both parents]	
+                10. Who is in control of the child health tracker or system ?  [Doctor / medical institution]	
+              </li>
+              <li>
+                11. Your name (optional)
+              </li>
+                         
+            </ul>
+          </div>
+        </div>
+        <hr>
+        <div id="service4">
+          <div class="service-block">
+            <h1>Life expectancy</h1>            
+          </div>
+          <div class="service-text">
+            <p>
+              We estimated the average numbers of years lived with and without cardiovascular 
+              disease (CVD) in normal weight, overweight, and obese individuals, aged ≥30 years.
+              
+            </p>
+            <p>
+              Methods
+            </p>
+            <p>
+              A total of 7529 participants were recruited. The multi-state Markov model was used
+               to obtain hazard ratios (HRs) for three transitions (CVD free to nonfatal CVD, CVD 
+               free to all-cause death, and nonfatal CVD to all-cause death) stratified by body mass 
+               index (BMI) categories at baseline and adjusted for confounders including sex, age, 
+               smoking, family history of premature CVD, education and physical activity. Life 
+               expectancies (LEs) were also estimated for each transition stratifying by BMI categories and sex.
+            </p>
+            <p>
+              Results
+            </p>
+            <p>
+              We found 986 incident cases of nonfatal CVD and 669 overall deaths (236 CVD deaths) 
+              after more than 18 years of follow-up. Overweight and obesity were associated with an 
+              increased risk of nonfatal CVD (HR, 1.42 (95% confidence interval (CI) 1.21–1.66) and 
+              (1.64, 1.37–1.96), respectively), compared with normal weight individuals. Overweight 
+              and obesity were also associated with lower risk of mortality without CVD (0.39, 0.20–0.77) 
+              and (0.35, 0.14–0.85), respectively. Among those with CVD, overweight compared with normal 
+              weight was associated with a lower risk of mortality (0.72, 0.56–0.94). Total LEs for both 
+              men and women with overweight and obesity were not significantly different from their 
+              normal weight counterparts. Compared with normal weight individuals, men and women with 
+              obesity lived 4.1 (CI: −6.3, −1.3) and 4.3 (−6.4, −2.0) fewer years free of CVD; however, 
+              they lived 3.9 (2.1, 6.0) and 3.7 (2.1, 5.6) longer years with CVD than their normal weight 
+              counterparts, respectively.
+            </p>
+            <p>
+              Conclusions
+            </p>
+            <p>
+              We demonstrated that although total LE was not influenced by higher BMI; individuals 
+              with overweight and obesity could expect longer longevity after diagnosis of nonfatal CVD. 
+              These extra years of life impose financial burden on both patients and the health care system.
+            </p>  
+            <a href="https://www.nature.com/articles/s41366-019-0464-3">Source</a>
+          </div>
+        </div>
+      
+        
+
+      </section>
+
+      <section class="team" id="team">
+        <div class="teamdetail">
+          <h1>Our team...</h1>
+          
+          <div class=team_pic_left>
+            <img src="./img/frau.jpg" alt="" >
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam enim at ratione natus 
+              exercitationem reiciendis fuga dolorum, ab harum delectus quae, pariatur nihil. Voluptate
+                officia quos, eos minima exercitationem laboriosam. </p>
+          </div>
+          <div class=team_pic_right>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam enim at ratione natus 
+            exercitationem reiciendis fuga dolorum, ab harum delectus quae, pariatur nihil. Voluptate
+              officia quos, eos minima exercitationem laboriosam. </p>
+            <img src="./img/mann.jpg" alt="" >
+          </div>
+        </div>
+
       </section>
 
       <section class="contact" id="contact">
@@ -121,7 +308,7 @@
       </section>
 
       <footer>
-
+        <h1>here comes the footer like Impressum</h1>
       </footer>
       
     </container>
