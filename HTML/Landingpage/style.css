@@ -28,6 +28,9 @@ label, input,textarea {
   color: var(--text-color);
   font-size: 1.25rem;
 }
+h2 {
+  font-size: .75rem;
+}
 button {
   background-color: var(--bg-light-color);
   /* color: var(--text-color); */
@@ -68,13 +71,20 @@ header {
   border-radius: 36px;
 }
 
-.header-buttons {
+/* .header-buttons {
   display: flex;
-  flex-wrap: wrap;
-  /* flex-flow: column-reverse; */
   gap: 1rem;
   justify-content: center;
   margin: 1rem;
+  padding-bottom: 1rem;
+  border: 2px solid rgb(0, 255, 98);
+} */
+.header-button-bmi {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
   padding-bottom: 1rem;
   /* border: 2px solid red; */
 }
@@ -134,6 +144,7 @@ nav {
 }
 .icon-title img {
   margin-right: 1rem;
+  width: 3rem;
 }
 .icon-title h2 {
   font-size: 1.25rem;
@@ -157,13 +168,12 @@ nav {
   background-color: var(--theme-color);
   display: flex;
   padding:2rem;
+  gap: 2rem;
   
   /* border: 1px solid red; */
 }
 .form-input {
-  /* width: 50%; */
   min-width: 25rem;
-  margin-right: 2rem;
   text-align: center;
   /* border: 1px solid greenyellow; */
 }

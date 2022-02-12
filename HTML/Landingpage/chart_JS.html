@@ -1,0 +1,45 @@
+<a href="https://towardsdatascience.com/how-to-make-a-free-serverless-interactive-dashboard-in-minutes-e6ce5a1088e0">
+  https://towardsdatascience.com/how-to-make-a-free-serverless-interactive-dashboard-in-minutes-e6ce5a1088e0</a>
+<br>
+<a href="https://www.chartjs.org/">https://www.chartjs.org/</a>
+  
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Chartjs example</title>
+</head>
+<style>
+  .chart {
+    max-width: 30rem;
+  }
+</style>
+<body>
+    <h1 style="color: DarkRed; text-align: center;"> Some numbers as example </h1>
+    <div class="chart">
+        <canvas id="myChart"></canvas>
+    </div>
+<script>
+    const data = [123,225,27];
+    let myChart = document.getElementById("myChart").getContext("2d");
+    let chart = new Chart(myChart, {
+        type: "pie", 
+        data:{
+            labels:["Banana", "Apple", "Cherry"],
+            datasets:[{
+                label:"Fruits",
+                data:data,
+                backgroundColor: ["AliceBlue", "AntiqueWhite", "DarkRed"],//can be array - same length as inputs
+                borderWidth:1,
+                borderColor: '#111'
+            }]
+        },
+        options: {}
+    }); 
+    
+</script>
+</body>
+</html>
