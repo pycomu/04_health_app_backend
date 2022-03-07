@@ -1,0 +1,83 @@
+# https://codepen.io/fsbraun/pen/XQQpgb
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Gauge Demo</title>
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        
+        <style>
+          .gauge {
+              position: relative;
+              border-radius: 50%/100% 100% 0 0;
+              background-color: var(--color, #a22);
+              overflow: hidden;
+          }
+          .gauge:before{
+              content: "";
+              display: block;
+              padding-top: 50%;   /* ratio of 2:1*/
+          } 
+          .gauge .chart {
+            overflow: hidden;
+          }
+          .gauge .mask {
+            position: absolute;
+            left: 20%;
+            right: 20%;
+            bottom: 0;
+            top: 40%;
+            background-color: #fff;
+            border-radius: 50%/100% 100% 0 0;
+          }
+
+          .gauge .percentage {
+              position:  absolute;
+              top: -1px;
+              left: -1px;
+              bottom: 0;
+              right: -1px;
+              background-color: var(--background, #aaa);
+              transform:rotate(var(--rotation)); 
+              transform-origin: bottom center; 
+              transition-duration: 600;
+          }
+          .gauge:hover {
+            --rotation: 100deg;
+          }
+          .gauge .value {
+            position:absolute; bottom:0%; left:0;   
+            width:100%; 
+            text-align: center;
+          }
+
+          .gauge .min {
+            position:absolute; 
+            bottom:0; left:5%;   
+          }
+          /* .gauge .max {
+            position:absolute; 
+            bottom:0; right:5%;   
+          }            */
+
+        </style>
+<body>
+  <h1>Fast and simple gauge chart (HTML and CSS-only)</h1>
+  <p>Set the value by adjusting the <code>--rotation</code> style in the chart's div. Additional parameters: <code>--color</code> and <code>--background</code>.</p>
+  
+  <div class="gauge" style="width: 200px; --rotation:170deg; --color:#5cb85c; --background:#e9ecef;">
+        <div class="percentage"></div>
+        <div class="mask"></div>
+        <span class="value">46%</span>
+  </div>
+  
+  <!-- <p><b>This is the required HTML code:</b></p>
+  <pre><code>&lt;div class="gauge" style="width: 200px; --rotation:83deg; --color:#5cb85c; --background:#e9ecef;">
+      &lt;div class="percentage">&lt;/div>
+      &lt;div class="mask">&lt;/div>
+      &lt;span class="value">46%&lt;/span>
+  &lt;/div>
+  </code></pre> -->
+
+</body>
