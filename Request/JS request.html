@@ -1,0 +1,98 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS request</title>
+  </head>
+  <style>
+    body {
+      background-color: #ffcc00;
+    }
+
+    h1,
+    p {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 3rem;
+      font-size: 30px;
+      margin: 2rem;
+    }
+  </style>
+  <body>
+    <button onclick="time()">Click for time</button>
+    <h1 id="ipText"></h1>
+    <p>( This is your time...probably :P )</p>
+
+    <button onclick="bmi_calc()">Click for BMI without json input</button>
+    <button onclick="bmi_calc_js()">Click for BMI as json input</button>
+    <h1 id="bmiText"></h1>
+    <h1 id="bmiTextJS"></h1>
+    <p>( This is your BMi with weight 70kg and height 2 m)</p>
+
+    <script>
+      function time() {
+        const url = "http://127.0.0.1:8000/now";
+
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Request failed with status ${reponse.status}`);
+            }
+            return response.json();
+          })
+          .then(function (myJson) {
+            // console.log(myJson.Time); // here parameter "Time" comes from backend return !
+            document.querySelector("#ipText").innerHTML = myJson.Time; // here parameter "Time" comes from backend return !
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+      }
+      function bmi_calc() {
+        const url = "http://127.0.0.1:8000/bmicalc?height=2&weight=70";
+        
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Request failed with status ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(function (myJson) {
+            //console.log(myJson.data); // just to check response from API
+            document.querySelector("#bmiText").innerHTML = myJson.data; // here parameter "data" comes from backend return !
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+
+      }
+      function bmi_calc_js() {
+        // const url = "http://127.0.0.1:8000/playback"; // testing the request function in Fastapi
+        const url = "http://127.0.0.1:8000/bmicalc";
+        const input = { "height": 2, "weight": 70 }; // input as a json object into API
+        
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(input),
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Request failed with status ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(function (myJson) {
+            // console.log(myJson.data); // just to check response from API
+            document.querySelector("#bmiTextJS").innerHTML = myJson.data; // here parameter "data" comes from backend return !
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+
+      }
+    </script>
+  </body>
+</html>
