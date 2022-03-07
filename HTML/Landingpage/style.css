@@ -181,6 +181,62 @@ nav {
   color: var(--bg-light-color);
   color: whitesmoke;
 }
+.gauge {
+  width: 100%;
+  max-width: 250px;
+  font-family: "Roboto", sans-serif;
+  font-size: 32px;
+  color: #004033;
+}
+.gauge::before {
+  content: "0";
+}
+.gauge::after {
+  content: "40";
+}
+
+.gauge__body {
+  width: 100%;
+  height: 0;
+  padding-bottom: 50%;
+  background: #b4c0be;
+  position: relative;
+  border-top-left-radius: 100% 200%;
+  border-top-right-radius: 100% 200%;
+  overflow: hidden;
+}
+
+.gauge__fill {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: inherit;
+  /* width: 50px; */
+  height: 100%;
+  background: #009578;
+  transform-origin: center top;
+  transform: rotate(0.turn);
+  transition: transform 0.2s ease-out;
+}
+
+.gauge__cover {
+  font-size: 1rem;
+  width: 75%;
+  height: 150%;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%); /* change value to design gauge curve */ 
+
+  /* Text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25%;
+  box-sizing: border-box;
+ }
 /* ########################### SERVICES ######################################## */
 .services {
   padding:2rem;
