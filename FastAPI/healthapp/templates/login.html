@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthApp Login</title>
+    <!-- link for css file to be found by fastapi -->
+    <link href="{{ url_for('static', path='./login.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Login for Health App</h1>
+    <div class="register"><a href="/register">Register for new account</a></div>
+    
+    <form method="POST" action="/login" port="8500">
+        <input type="text" name="username" placeholder="username" required>
+        <input type="text" name="password" placeholder="password" required>
+        <button type="submit">Login</button>
+        <button type="reset">Reset</button>
+    </form>
+    
+    <div class="account"><h1>{{no_account}}</h1></div>
+    
+</body>
+</html>

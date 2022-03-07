@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthApp Login</title>
+    <!-- link for css file to be found by fastapi -->
+    <link href="{{ url_for('static', path='./login.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Personal Page for Health App</h1>
+
+    <a>You logged in with email: "{{email}}"" and password: "{{pw}}"</a>
+
+    <div class="logout"><a href="/">Logout again</a></div>
+    
+</body>
+</html>
