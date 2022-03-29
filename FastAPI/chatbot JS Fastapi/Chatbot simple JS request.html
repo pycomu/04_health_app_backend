@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chatbot simple</title>
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="chatbot.css">
+  </head>
+  <body>
+    <div id="container" class="container">
+      <!-- <img
+        src="https://cdn.pixabay.com/photo/2020/01/02/16/38/chatbot-4736275_960_720.png"
+        height="400vh"
+        alt="Chatbot clipart"
+      /> -->
+      <img
+        src="./chatbot-4071274_960_720.jpg"
+        height="300vh"
+        alt="Chatbot clipart"
+      />
+      <div id="chat" class="chat">
+        <div id="messages" class="messages"></div>
+        <input
+          id="input"
+          type="text"
+          placeholder="Write something..."
+          autocomplete="off"
+          autofocus="true"
+        />
+      </div>
+    </div>
+  </body>
+
+  <!--Script-->
+  <script type="text/javascript">
+    // input by user
+    const inputField = document.getElementById("input"); 
+    
+    // listen that the user pushed "enter" key
+    inputField.addEventListener("keydown", (e) => {
+      if (e.code === "Enter") {
+        let input = inputField.value;
+        inputField.value = "";
+        output(input); // call function output
+      }
+    });
+
+    // function to clean user input and contact backend for an answer and update chat window
+    function output(input) {
+      let reply;
+      let text = input.toLowerCase().replace(/[^\w\s\d]/gi, ""); // users input
+      text = text
+        .replace(/ a /g, " ")
+        .replace(/whats/g, "what is")
+        .replace(/please /g, "")
+        .replace(/ please/g, "")
+        .replace(/r u/g, "are you");
+
+      // console.log("1 ",text); // just to check
+      
+
+      // function to send cleaned user input and contact backend for an answer and update chat window
+      get_answer (text) 
+    }
+    // contact backend and receive an intelligent bot answer
+    function get_answer (text) {
+      const url = "http://127.0.0.1:8000/playback"; // testing the request function in Fastapi
+      const userdata = { "user": text}; // input as a json object into API
+      
+      // console.log("2 ",userdata); // just to check
+
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userdata),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(function (myJson) {          
+          reply = myJson.data; // here parameter "data" comes from backend return !
+
+          // console.log("3",reply); // just to check response from API
+
+          // function to use cleaned user input and received bot answer
+          addChatEntry(text, reply);
+        })
+        .catch(function (error) {
+          console.log("Error: " + error);
+        });      
+    }
+
+    // add the users input to chat window and bot answer, firt just type "Typing.." (a fake) 
+    // and then overwrite by real answer from bot by algorythm
+    function addChatEntry(input, bot_answer) {
+      const messagesContainer = document.getElementById("messages");
+      
+      // console.log("4 ",input, bot_answer); // just to check
+
+      // add users input to chat window "messages"
+      let userDiv = document.createElement("div");
+      userDiv.id = "user";
+      userDiv.className = "user response";
+      userDiv.innerHTML = `<span>${input}</span>`;
+      messagesContainer.appendChild(userDiv);
+
+      // add bot answer to chat window "messages"
+      let botDiv = document.createElement("div");
+      let botText = document.createElement("span");
+      botDiv.id = "bot";
+      botDiv.className = "bot response";
+      // first bot is thinking (fake)
+      botText.innerText = "Typing...";
+      botDiv.appendChild(botText);
+      messagesContainer.appendChild(botDiv);
+
+      messagesContainer.scrollTop =
+        messagesContainer.scrollHeight - messagesContainer.clientHeight;
+      // after some sec. the real bot answer is overwriting the text "Typing..." in chat window "messages"
+      setTimeout(() => {
+        botText.innerText = `${bot_answer}`;
+      }, 800);
+    }
+  </script>
+</html>
