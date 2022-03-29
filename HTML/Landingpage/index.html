@@ -92,34 +92,42 @@
       </main>
 
       <section class="bmi-check" id="bmi-check">
-        <!-- here the API server - could be local host for testing -->
-        <!-- <form class="form-input" action="http://127.0.0.1:8000/form" method="POST"> -->
-        <!-- <form action="https://pycomu-bmi-calc.herokuapp.com/bmicalconly" method="POST"> -->
         
-        <form class="form-input">
+        <div class="bmi_data">
+          
           <h1>Please enter your data here *:</h1>
           <h2>(* currently only for adults)</h2>
           <div class="weight">
             <label for="weight">Weight in Kg</label>
-            <input type="number" name="weight" id="weight" min="1" max="200" step="1" value ="70" />
+
+            <div class="row">
+              <input type="range" min="20" max="200" value="76" id="weight" oninput="calculate()">
+              <span id="weight-val">76 kg</span>
+          </div>
+
+            <!-- <input type="number" name="weight" id="weight" min="1" max="200" step="1" value ="70" /> -->
           </div>
           <div class="height">
             <label for="height">Height in cm</label>
-            <input type="number" name="height" id="height" min="100" max="300" step="1" value="170" />
-          </div>
-          <div class="submit">
-            <button type="reset">Reset</button>
-            <!-- <button type="submit" id="submitbmi">Submit</button> -->
-            <button type="button" id="submitbmi" onclick="calcbmi()">Submit</button>
-          </div>
-          
-          <div>
-            <h1 id="result">Your BMI is ...</h1>
-          </div>
             
-           
-               
-        </form>
+            <div class="row">
+              <input type="range" min="100" max="250" value="183" id="height" oninput="calculate()">
+              <span id="height-val">183 cm</span>
+            </div>
+          </div>  
+          <div class="display">
+            <p id="result">Calculated BMI of ...</p>
+            <p id="category">Normal weight</p>
+          </div>       
+        </div>
+
+        <div class="gauge">
+          <div class="gauge__body">
+            <div class="gauge__fill"></div>
+            <div class="gauge__cover"></div> 
+          </div>
+
+        </div> 
         <!-- <div> -->
           <div class="bmicheck-text">
             <p>
@@ -302,34 +310,72 @@
       }
     }
   </script>
-  <script>
-    
-    // submitbmi.addEventListener('click', () => {  // alternative start of function
-    function calcbmi() {
-      /* Getting input from user into height variable. Input is string so typecasting is necessary. */
-      let height = parseInt(document.querySelector("#height").value);
-    
-      /* Getting input from user into weight variable.  Input is string so typecasting is necessary.*/
-      let weight = parseInt(document.querySelector("#weight").value);
-    
-      let result = document.querySelector("#result");
-      
-      // let result = document.querySelector("#resultnumber");
-    
-      // Checking the user providing a proper value or not
-      if (height === "" || isNaN(height)) 
-          result.innerHTML = "Provide a valid Height!";
-    
-      else if (weight === "" || isNaN(weight)) 
-          result.innerHTML = "Provide a valid Weight!";
-    
-      // If both input is valid, calculate the bmi
-      else {              
-          let bmi = (weight / ((height * height) / 10000)).toFixed(1); // Fixing upto 1 decimal places
-          result.innerHTML = `Your BMI is ${bmi}`;
-      }
+  <script type="text/javascript">
+
+    window.onload = () => {
+        calculate()
+    };
+
+    function calculate(){
+        var bmi;
+        var result = document.getElementById("result");
+        const gaugeElement = document.querySelector(".gauge");
+
+        var weight = parseInt(document.getElementById("weight").value);
+        document.getElementById("weight-val").textContent = weight + " kg";
+
+        var height = parseInt(document.getElementById("height").value);
+        document.getElementById("height-val").textContent = height + " cm";
+
+        bmi = (weight / Math.pow( (height/100), 2 )).toFixed(1);
+        result.textContent = "Calculated BMI of " + bmi;
+
+        if(bmi < 18.5){
+            category = "Underweight 😒";
+            result.style.color = "#3a9de4";
+            gaugeElement.querySelector(".gauge__fill").style.background = "#3a9de4";
+        }
+        else if( bmi >= 18.5 && bmi <= 24.9 ){
+            category = "Normal Weight 😍";
+            result.style.color = "#1fd319";
+            gaugeElement.querySelector(".gauge__fill").style.background = "#1fd319";
+        }
+        else if( bmi >= 25 && bmi <= 29.9 ){
+            category = "Overweight 😮";
+            result.style.color = "#f1ee24";
+            gaugeElement.querySelector(".gauge__fill").style.background = "#f1ee24";
+        }
+        else if( bmi >= 30 && bmi <= 34.9 ){
+            category = "Obese 😱";
+            result.style.color = "#f16f24";
+            gaugeElement.querySelector(".gauge__fill").style.background = "#f16f24";
+        }
+        else if( bmi >= 35 && bmi <= 39.9 ){
+            category = "Obese II 😱😱";
+            result.style.color = "#c21111";
+            gaugeElement.querySelector(".gauge__fill").style.background = "#c21111";
+        }
+        else{
+            category = "Obese III 😱😱😱";
+            result.style.color = "#7c0606";
+            gaugeElement.querySelector(".gauge__fill").style.background = "#7c0606";
+
+        }
+        document.getElementById("category").textContent = category;
+        
+        // draw gauge
+        
+        value = (bmi/40).toFixed(1);
+        if (value > 1) {value = 1};
+        // console.log(value);
+
+        gaugeElement.querySelector(".gauge__fill").style.transform = `rotate(${value / 2}turn)`;
+        gaugeElement.querySelector(".gauge__fill").style.transition = `transform .5s ease-out`;
+        
+        gaugeElement.querySelector(".gauge__cover").textContent = `BMI of ${bmi}`;
+
     }
-    
+
   </script>
 </body>
 </html>
