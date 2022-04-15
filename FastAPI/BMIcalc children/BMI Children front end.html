@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BMI Children</title>
+    <!--Google Font-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+    	*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    background: #046db9;
+}
+.container{
+    background-color: #ffffff;
+    padding: 30px 30px;   
+    width: 400px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 5px;
+    font-family: 'Poppins',sans-serif;
+    box-shadow: 25px 25px 30px rgba(0,0,0,0.15);
+}
+.container h1{
+	background: #024b94;
+	color: white;
+	text-align: center;
+	font-size: 23px;
+	letter-spacing: 1px;
+	margin-top: -30px;
+	margin-left: -30px;
+	margin-right: -30px;
+	margin-bottom: 40px;
+}
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+.row span{
+    font-weight: 500;
+}
+input[type="range"]{
+    width: 70%;
+    height: 2rem;
+    -webkit-appearance: none;
+    appearance: auto;
+    background-color: #dcdcdc;
+    border-radius: 3px;
+    outline: none;
+}
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: auto;
+    height: 25px;
+    width: 15px;
+    background-color: #1c1c1c;
+    border-radius: 50%;
+    cursor: pointer;
+}
+input[type="number"]{
+    width: 25%;
+    height: 1.5rem;
+    font-size:18px;
+    -webkit-appearance: none;
+    appearance: auto;
+    outline: none;
+    border:none;
+}
+#result{
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #1fd319;
+}
+#category, #percentile{
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.display{
+box-shadow: 0 0 20px rgba(0,139,253,0.25);
+margin-bottom: 60px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+			<h1>BMI Child Calculator</h1>
+			<div class="display">
+				        <p id="result">BMI</p>
+                        <p id="percentile">Your Percentile</p>
+				        <p id="category">Health Category</p>                        
+                        <p id="error"></p>
+			</div>
+        <div class="row">
+            <input type="range" min="5" max="100" value="30" id="weight" oninput="calculate()">
+            <span id="weight-val">30 kg</span>
+        </div>
+        <div class="row">
+            <input type="range" min="50" max="250" value="120" id="height" oninput="calculate()">
+            <span id="height-val">120 cm</span>
+        </div>
+        <div class="row">
+            <input type="radio" id="male" name="gender" value="1" oninput="calculate()">
+            <label for="gender">Male</label>
+            <input type="radio" id="female" name="gender" value="0" oninput="calculate()">
+            <label for="gender">Female</label>
+        </div>
+        <div class="row">
+            <label for="age">Age (months 24 - 240.5):</label>
+            <input type="number" id="age" name="age" min="24" max="240.5" step="0.5" oninput="calculate()">
+        </div>
+
+
+    </div>
+</body>
+    <!--Script-->
+    <script type="text/javascript">
+        function calculate(){
+            var bmi;
+            var result = document.getElementById("result");
+
+            // update the numbers incl. entities beside the slider
+            var weight = parseInt(document.getElementById("weight").value);
+            document.getElementById("weight-val").textContent = weight + " kg";
+
+            var height = parseInt(document.getElementById("height").value);
+            document.getElementById("height-val").textContent = height + " cm";
+
+            // calculate BMI and print on screen in element "result"
+            bmi = (weight / Math.pow( (height/100), 2 )).toFixed(1);
+            result.textContent = bmi; // the bmi should come from API
+
+            // ####### send height, weight, gender, age to API backend and receive percentile ##########
+            
+            // read out the value from the :checked radio
+            var gender = parseInt(document.querySelector('input[name=gender]:checked').value); // must be integer!
+
+            // read out the age in months
+            var age = parseInt(document.getElementById("age").value); // must be float!
+
+            const url = "http://127.0.0.1:8000/bmicalc_child";
+            const input = { "age": age, "gender": gender,"height": height, "weight": weight}; // input as a json object into API
+            console.log(input, "BMI ", bmi);
+
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(input),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error(`Request failed with status ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    // console.log(myJson.data); // just to check response from API
+                    document.querySelector("#percentile").innerHTML = myJson.percentile+ "th Percentile"; // here parameter "data" comes from backend return !
+                    document.querySelector("#error").innerHTML = myJson.error;
+                    
+                    // check BMI category based on percentile and print on screen in element "category"
+                    var percent = myJson.percentile;
+                    
+                    if(percent < 5){
+                        category = "Underweight 😒";
+                        result.style.color = "#3a9de4";
+                    }
+                    else if( percent >= 5 && percent < 85 ){
+                        category = "Healthy Weight 😍";
+                        result.style.color = "#1fd319";
+                    }
+                    else if( percent >= 85 && percent < 95 ){
+                        category = "Overweight 😮";
+                        result.style.color = "#f1ee24";
+                    }                   
+                    else{
+                        category = "Obese 😱";
+                        result.style.color = "#f16f24";
+                    }
+                    document.getElementById("category").textContent = category;
+
+
+                })
+                .catch(function (error) {
+                    console.log("Error: " + error);
+                });
+            
+            
+        }
+    </script>
+
+</html>
