@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	</head>
+	<style>
+    .charts {
+      display: flex;
+    }
+  </style>
+	<body>
+    <div class = "charts">
+      <div id="myDiv" style="width: 800px; height: 800px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+      <div id="myDiv2" style="width: 800px; height: 800px;">
+    </div>
+		
+  
+	<script>
+		const CSV = "/BMIcalc children/bmi_age_male.csv"; // be aware of working directory path
+    const CSV2 = "/BMIcalc children/bmi_age_female.csv"; // be aware of working directory path
+
+		function plotFromCSV(csv, target, gender) {
+			Plotly.d3.csv(csv, function(err, rows) {
+				processData(rows, target, gender);
+			});
+		};
+    function processData(allRows, target, gender) {
+
+			let x = [];
+			let y3 = [];
+			let y5 = [];
+			let y10 = [];
+      let y25 = [];
+      let y50 = [];
+      let y75 = [];
+      let y85 = [];
+      let y90 = [];
+      let y95 = [];
+      let y97 = [];
+
+			for (var i=0; i<allRows.length; i++) {
+       row = allRows[i];
+       x.push( row['Age_months'] );
+       y3.push( row['3'] );
+       y5.push( row['5'] );
+       y10.push( row['10'] );
+       y25.push( row['25'] );
+       y50.push( row['50'] );
+       y75.push( row['75'] );
+       y85.push( row['85'] );
+       y90.push( row['90'] );
+       y95.push( row['95'] );
+       y97.push( row['97'] );
+      }
+      console.log( 'X',x, 'Y3',y3, 'Y5',y5, 'Y10',y10, 'Y25',y25, 'Y50',y50, 'Y75',y75, 'Y85',y85, 'Y90',y90, 'Y95',y95, 'Y97',y97);
+
+      var t0 = {
+       x: [170], 
+       y: [20],
+       name: 'your Percentile',
+       marker: {
+           symbol: 'circle',
+           size: 10,
+           color: "blue",
+       }
+      };
+      var t3 = {
+          x: x, 
+          y: y3,
+          name: '3rd Percentile',
+          fill: 'tozeroy',
+          line: {
+						color: "red",
+						width: 1
+					}
+      };
+      var t5 = {
+          x: x, 
+          y: y5,
+          name: '5th Percentile',
+          fill: 'tonexty',
+          fillcolor: 'lightgreen',
+          line: {
+						color: "green",
+						width: 1
+					}
+      };
+      var t10 = {
+          x: x, 
+          y: y10,
+          name: '10th Percentile',
+          fill: 'tonexty',
+          fillcolor: 'lightgreen',
+          line: {
+						color: "green",
+						width: 1
+					}
+      };
+      var t25 = {
+          x: x, 
+          y: y25,
+          name: '25th Percentile',
+          fill: 'tonexty',
+          fillcolor: 'lightgreen',
+          line: {
+						color: "green",
+						width: 1
+					}
+      };
+      var t50 = {
+          x: x, 
+          y: y50,
+          name: '50th Percentile',
+          fill: 'tonexty',
+          fillcolor: 'lightgreen',
+          line: {
+						color: "black",
+						width: 1
+					}
+      };
+      var t75 = {
+          x: x, 
+          y: y75,
+          name: '75th Percentile',
+          fill: 'tonexty',
+          fillcolor: 'lightgreen',
+          line: {
+						color: "green",
+						width: 1
+					}
+      };
+      var t85 = {
+          x: x, 
+          y: y85,
+          name: '85th Percentile',
+          fill: 'tonexty',
+          fillcolor: 'lightgreen',
+          line: {
+						color: "green",
+						width: 1
+					}
+      };
+      var t90 = {
+          x: x, 
+          y: y90,
+          name: '90th Percentile',
+          fill: 'tonexty',
+          fillcolor: 'lightgreen',
+          line: {
+						color: "green",
+						width: 1
+					}
+      };
+      var t95 = {
+          x: x, 
+          y: y95,
+          name: '95th Percentile',
+          fill: 'tonexty',
+          line: {
+						color: "red",
+						width: 1
+					}
+      };
+      var t97 = {
+          x: x, 
+          y: y97,
+          name: '97th Percentile',
+          fill: 'tonexty',
+          line: {
+						color: "red",
+						width: 1
+					}
+      };
+    
+
+      var charts = [ t3, t5, t10, t25, t50, t75, t85, t90, t95, t97, t0]; // order important as it will overpaint previous lines, areas
+
+      var layout = {
+          title: 'Plotting CSV data of '+ gender,
+          xaxis: {range: [24, 241],
+          showline: true,
+          autotick: true,
+          ticks: 'outside',
+          tickcolor: 'lightgrey',
+          tickwidth: 2,
+          ticklen: 5,
+          tickmode: "linear",
+          tick0: 24,
+          dtick: 12,
+          title: 'Age in months',
+          titlefont: {family: 'Arial, sans-serif',size: 18,color: 'lightgrey'}
+          },
+          yaxis: {range: [10, 36],
+          showline: true,
+          autotick: true,
+          ticks: 'outside',
+          tickcolor: 'lightgrey',
+          tickwidth: 2,
+          ticklen: 5,
+          tickmode: "linear",
+          tick0: 10,
+          dtick: 1,
+          title: 'BMI calculated',
+          titlefont: {family: 'Arial, sans-serif',size: 18,color: 'lightgrey'}		
+          },
+      };
+      //https://plot.ly/javascript/configuration-options/
+			let config = { 
+				responsive: true,
+				// staticPlot: true,
+				// editable: true
+			};
+
+      // Plotly.newPlot('myDiv', charts, layout,config,{displayModeBar: true});
+			Plotly.newPlot(target, charts, layout,config,{displayModeBar: true});
+			
+
+			
+		};
+
+
+    plotFromCSV(CSV, "myDiv", "male");
+    plotFromCSV(CSV2, "myDiv2", "female");
+      
+    
+
+    
+    
+  </script>
+  </body>
+</html>

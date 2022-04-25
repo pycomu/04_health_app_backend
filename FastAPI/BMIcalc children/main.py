@@ -11,7 +11,7 @@ app = FastAPI()
 def calculation (df,child_age, child_bmi):
     y =0
     p_child = 0
-    for age in df['Age months']:
+    for age in df['Age_months']:
         if age > child_age:            
             for colomn in range(1,11):
                 if df.iat[y,colomn] > child_bmi:
@@ -49,14 +49,14 @@ async def calc_bmi(info : Request):
     if gender == 1:
         if result < 13.52747 or result > 32.41344:
             return {"percentile":"ERROR ","error": "Calc.BMI {} is out of range".format(result)}
-        df = pd.read_csv("BMIcalc children/bmi_age_male.csv", delimiter=';') # take care of working path !
+        df = pd.read_csv("BMIcalc children/bmi_age_male.csv", delimiter=',') # take care of working path !
         p_info = calculation (df, age_m, result)
         
 
     elif gender == 0:
         if result < 13.21253 or result > 35.10556:
             return {"percentile":"ERROR ","error": "Calc.BMI {} is out of range".format(result)}
-        df = pd.read_csv("BMIcalc children/bmi_age_female.csv", delimiter=';') # take care of working path !
+        df = pd.read_csv("BMIcalc children/bmi_age_female.csv", delimiter=',') # take care of working path !
         p_info = calculation (df, age_m, result)
         
     else:
