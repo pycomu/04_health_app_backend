@@ -6,6 +6,19 @@
     <link rel="stylesheet" href="./style.css" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <title>PyCoMu Health Web App</title>
+
+    <script>
+      // function scrollWindow(location) {
+      //   window.scrollTo(0, location);
+      //   console.log("done1")
+      // }
+      function dark() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+      }
+
+    </script>
+
   </head>
   <body>
     <container class="container">
@@ -35,10 +48,25 @@
       </header>
       <nav id="navbar">
         <a class="active" href="#home"><!-- <i class="fa fa-fw fa-home"> --></i>Home</a>
-        <a href="#grid">Services</a>
+        
+        <!-- <a onclick="scrollWindow(200)">Services</a> -->
+
+        <!-- <a onclick="scrollWindow2(bmi-check)>BMI Check 2</a>
+        <a onclick="scrollWindow(640)">BMI Check</a>
+        <a onclick="scrollWindow(2800)">Chatbot</a>
+        <a onclick="scrollWindow(3270)">Team</a>
+        <a onclick="scrollWindow(4500)">Contact</a> -->
+
+
+        <a href="#grid" >Services</a>
         <a href="#bmi-check">BMI Check</a>
+        <a href="#chatbot">Chatbot</a>
         <a href="#team">Team</a>
-        <a href="#contact"> <!-- <i class="fa fa-fw fa-envelope"> --> </i>Contact</a>
+        <a href="#contact"> <i class="fa fa-fw fa-envelope"> </i>Contact</a>
+        <a onclick="dark()">Light/Dark</a>
+        
+        
+
 
         <!-- sticky nav bar with JS -->
         <!-- <a class="active" href="javascript:void(0)">Home</a>
@@ -237,9 +265,22 @@
             <a href="https://www.nature.com/articles/s41366-019-0464-3">Source</a>
           </div>
         </div>
-      
-        
+      </section>
 
+      <section class="chatbot" id="chatbot">
+        <h1>Our Chatbot for your Q&A</h1>
+        <div class="chat" id="chat">
+          
+          
+          <div id="messages" class="messages"></div>
+          <input
+            id="input"
+            type="text"
+            placeholder="Write something..."
+            autocomplete="off"
+            autofocus="true"
+          />
+        </div>
       </section>
 
       <section class="team" id="team">
@@ -266,7 +307,7 @@
       <section class="contact" id="contact">
         <h1>Contact form</h1>
         
-        <div>
+        <div class ="userinput">
           <!-- use service of formsubmit.io with temp healthapp gmail account -->
           <form target="_blank" action="https://formsubmit.co/healthappforkids@gmail.com" method="POST">
             <div class="form-group">
@@ -285,8 +326,7 @@
             <button type="reset">Reset</button>
             <button type="submit" class="btn btn-lg btn-dark btn-block">Submit Form</button>
           </form>
-        </div>
-        
+        </div>   
       </section>
 
       <footer>
@@ -295,7 +335,7 @@
       
     </container>
   
-  <!-- JS not really working yet -->
+  <!-- Navi bar JS not really working yet -->
   <script>
     window.onscroll = function() {myFunction()};
     
@@ -310,6 +350,8 @@
       }
     }
   </script>
+
+  <!-- script for BMI calculation -->
   <script type="text/javascript">
 
     window.onload = () => {
@@ -377,5 +419,101 @@
     }
 
   </script>
+  
+  <!-- script for chatbot -->
+  <script type="text/javascript">
+    // input by user
+    const inputField = document.getElementById("input"); 
+    
+    // listen that the user pushed "enter" key
+    inputField.addEventListener("keydown", (e) => {
+      if (e.code === "Enter") {
+        let input = inputField.value;
+        inputField.value = "";
+        output(input); // call function output
+      }
+    });
+
+    // function to clean user input and contact backend for an answer and update chat window
+    function output(input) {
+      let reply;
+      let text = input.toLowerCase().replace(/[^\w\s\d]/gi, ""); // users input
+      text = text
+        .replace(/ a /g, " ")
+        .replace(/whats/g, "what is")
+        .replace(/please /g, "")
+        .replace(/ please/g, "")
+        .replace(/r u/g, "are you");
+
+      // console.log("1 ",text); // just to check
+      
+
+      // function to send cleaned user input and contact backend for an answer and update chat window
+      get_answer (text) 
+    }
+    // contact backend and receive an intelligent bot answer
+    function get_answer (text) {
+      const url = "http://127.0.0.1:8000/playback"; // testing the request function in Fastapi
+      const userdata = { "user": text}; // input as a json object into API
+      
+      // console.log("2 ",userdata); // just to check
+
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userdata),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(function (myJson) {          
+          reply = myJson.data; // here parameter "data" comes from backend return !
+
+          // console.log("3",reply); // just to check response from API
+
+          // function to use cleaned user input and received bot answer
+          addChatEntry(text, reply);
+        })
+        .catch(function (error) {
+          console.log("Error: " + error);
+        });      
+    }
+
+    // add the users input to chat window and bot answer, firt just type "Typing.." (a fake) 
+    // and then overwrite by real answer from bot by algorythm
+    function addChatEntry(input, bot_answer) {
+      const messagesContainer = document.getElementById("messages");
+      
+      // console.log("4 ",input, bot_answer); // just to check
+
+      // add users input to chat window "messages"
+      let userDiv = document.createElement("div");
+      userDiv.id = "user";
+      userDiv.className = "user response";
+      userDiv.innerHTML = `<span>${input}</span>`;
+      messagesContainer.appendChild(userDiv);
+
+      // add bot answer to chat window "messages"
+      let botDiv = document.createElement("div");
+      let botText = document.createElement("span");
+      botDiv.id = "bot";
+      botDiv.className = "bot response";
+      // first bot is thinking (fake)
+      botText.innerText = "Typing...";
+      botDiv.appendChild(botText);
+      messagesContainer.appendChild(botDiv);
+
+      messagesContainer.scrollTop =
+        messagesContainer.scrollHeight - messagesContainer.clientHeight;
+      // after some sec. the real bot answer is overwriting the text "Typing..." in chat window "messages"
+      setTimeout(() => {
+        botText.innerText = `${bot_answer}`;
+      }, 800);
+    }
+  </script>
+  
 </body>
 </html>

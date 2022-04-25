@@ -9,7 +9,11 @@
   --text-color: #0b1320;
   --link-color: #d28f1b;
 }
+
 /* --- General CSS --- */
+html {
+  scroll-padding-top: 50px; /* height of sticky header */
+}
 .container {
   margin: 0;
 }
@@ -19,6 +23,12 @@ body {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
 }
+.dark-mode {
+  background-color: #222;
+  --theme-color: rgb(87, 87, 87);
+  --text-color: #edebeb;
+ }
+
 
 h1,
 p,
@@ -104,7 +114,7 @@ nav {
 
 #navbar a:hover {
   background-color: var(--bg-light-color);
-  border: 1px solid var(--bg-dark-color);
+  /* border: 1px solid var(--bg-dark-color); */
   color: var(--link-color);
 }
 
@@ -169,30 +179,60 @@ nav {
   display: flex;
   padding:2rem;
   gap: 2rem;
-  
-  /* border: 1px solid red; */
 }
-.form-input {
-  min-width: 25rem;
-  text-align: center;
-  /* border: 1px solid greenyellow; */
-}
+
 .bmicheck-text p {
   color: var(--bg-light-color);
   color: whitesmoke;
 }
+/* ########################### SLIDER + TEXT ######################################## */
+.row{
+  display: flex;
+  min-width: 20rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.row span{
+  font-weight: 500;
+}
+input[type="range"]{
+  width: 70%;
+  height: 2rem;
+  -webkit-appearance: none;
+  appearance: auto;
+  background-color: var(--bg-light-color);
+  border-radius: 3px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: auto;
+  height: 25px;
+  width: 15px;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+#result{
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #1fd319;
+}
+#category{
+  font-size: 1.25rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+/* ########################### GAUGE + TEXT ######################################## */
 .gauge {
   width: 100%;
   max-width: 250px;
   font-family: "Roboto", sans-serif;
   font-size: 32px;
   color: #004033;
-}
-.gauge::before {
-  content: "0";
-}
-.gauge::after {
-  content: "40";
 }
 
 .gauge__body {
@@ -213,7 +253,7 @@ nav {
   width: inherit;
   /* width: 50px; */
   height: 100%;
-  background: #009578;
+  background: #1fd319;
   transform-origin: center top;
   transform: rotate(0.turn);
   transition: transform 0.2s ease-out;
@@ -241,13 +281,85 @@ nav {
 .services {
   padding:2rem;
 }
+/* ########################### Chatbot ######################################## */
+.chatbot {
+  box-sizing: border-box;
+  background-color: var(--theme-color);
+  padding:2rem;
+}
+.chatbot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.chat {
+  margin:2rem;
+  /* height: 400px; */
+  height: 35vh;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+::-webkit-input-placeholder {
+  color: 0.711;
+}
 
+input {
+  min-width:15rem;
+  border: 0;
+  padding: 15px;
+  margin-left: auto;
+  border-radius: 10px;
+}
 
+.messages {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: 90%;
+  width: 100%;
+  background-color: white;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+span {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+#bot {
+  margin-right: auto;
+}
+
+#user {
+  margin-left: auto;
+}
+
+.bot {
+  font-family: Consolas, "Courier New", Menlo, source-code-pro, Monaco,
+    monospace;
+}
+
+.avatar {
+  height: 25px;
+}
+
+.response {
+  display: flex;
+  align-items: center;
+  margin: 1%;
+}
 /* ########################### Team ######################################## */
 
 .team {
-  background-color: var(--theme-color);
+  /* background-color: var(--theme-color); */
   padding:2rem;
 }
 .teamdetail {
@@ -267,9 +379,15 @@ nav {
 
 /* ########################### CONTACT ######################################## */
 .contact {
+  background-color: var(--theme-color);
   padding:2rem;
+}
+
+.userinput {
+  /* padding:2rem; */
   max-width: 25rem;
 }
+
 /* ########################### FOOTER ######################################## */
 footer h1 {
   background-color: var(--text-color);
