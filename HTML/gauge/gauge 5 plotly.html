@@ -1,0 +1,54 @@
+
+<a href="https://plotly.com/javascript/gauge-charts/">https://plotly.com/javascript/gauge-charts/</a>
+  
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gauge Plotly JS</title>
+    <!-- Load plotly.js into the DOM -->
+    <script src='https://cdn.plot.ly/plotly-2.11.1.min.js'></script>
+</head>
+
+<style>  
+</style>
+
+<body>
+    <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+
+
+
+
+    
+<script>
+    var data = [
+        {
+            domain: { x: [0, 1], y: [0, 1] },
+            value: 28,
+            title: { text: "BMI" },
+            type: "indicator",
+            mode: "gauge+number",
+            gauge: {
+            axis: { range: [null, 40] },
+            steps: [
+
+                { range: [0, 20], color: "grey" },
+
+                { range: [20, 30], color: "orange" },
+                { range: [30, 40], color: "red" }
+
+            ],
+        }}
+    ];
+
+    var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+    Plotly.newPlot('myDiv', data, layout);
+
+    
+    
+</script>
+</body>
+</html>
